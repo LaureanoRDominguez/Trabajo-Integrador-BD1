@@ -20,8 +20,8 @@ Incluye los diseños de diagramas, normalización, creación de la base de datos
  - Carpeta `consultas` – 10 consultas pedidas en el trabajo integrador
 
  **Informe**
-   Explicación completa del sistema, entidades, atributos, claves, relaciones, normalización y consultas.
+ - Explicación completa del sistema, entidades, atributos, claves, relaciones, normalización y consultas.
 
 
 # Estado
-Trabajo **aprobado** – Año 2025.
+- Trabajo **aprobado** – Año 2025.
