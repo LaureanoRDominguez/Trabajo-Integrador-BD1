@@ -1,0 +1,9 @@
+Como primer paso de esta practica, en la cual intento aprender mas acerca de backups y como responder a posibles incidentes, me inmiscuí en investigar la implementacion de pg_dump, un comando creador de copias de la base de datos. Para implementarlo, utilice el siguiente comando en GitBash: "pg_dump -U postgres -d casino -f backup_casino.sql". Con esto, logre crear con exito una copia de mi base de datos, que luego sera utilizada en casos de emergencia.
+
+Para poder ejercitar con esta herramienta, decidi simular el borrado de una tabla de la base de datos. Primero intente con la tabla "promociones", corriendo el comando "DELETE FROM promociones;". Sin embargo, Postgres bloqueo la operacion con un error de llave foranea, ya que la tabla "otorga" dependia de los registros de "promociones". Esto me permitio comprobar que las claves foraneas actuan como un mecanismo de proteccion de la integridad de los datos, impidiendo que se elimine informacion que todavia esta siendo referenciada desde otra tabla.
+
+Al no poder utilizar esa tabla, busque una que no tuviera dependencias de este tipo, encontrando "notificaciones". Al correr "DELETE FROM notificaciones;", se eliminaron con exito 500 filas de la misma. Confirme con un SELECT COUNT(*) que la tabla tuviera 0 elementos en ella.
+
+Una vez perpretado el accidente, procedo a correr el comando "psql -U postgres -d casino -f backup_casino.sql", el cual restaura la base de datos a un punto anterior, en este caso al momento donde fue creado el backup. Verifique con exito que la tabla afectada fue restaurada.
+
+Como ultimo paso y para poseer un abanico mas amplio de backups, intente encontrar la manera de que estos se generaran automaticamente. Me di con la posibilidad de generar un script en bash, donde con simplemente correrlo, este crea el backup junto con la fecha de su creacion, permitiendo asi poseer backups de diferentes dias.
