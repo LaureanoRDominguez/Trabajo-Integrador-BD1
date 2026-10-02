@@ -34,8 +34,7 @@ ANALYZE logs;
 EXPLAIN ANALYZE SELECT * FROM logs WHERE id_usuario = 450;
 EXPLAIN ANALYZE SELECT * FROM logs WHERE id_usuario = 450;
 
--- Resultados obtenidos (segunda ejecucion de cada medicion):
---   Antes:   Parallel Seq Scan, 37.866 ms
---   Despues: Bitmap Index Scan, 2.763 ms
--- Los tiempos dependen de la maquina y de los datos generados al azar.
-
+-- Resultados: ver administracion/performance_resultados.txt
+-- Los tiempos varian en cada ejecucion porque los datos se generan al azar,
+-- pero el orden de magnitud se mantiene: Seq Scan sin indice (decenas de ms)
+-- contra Index Scan con indice (pocos ms).
