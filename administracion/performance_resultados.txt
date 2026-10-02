@@ -1,0 +1,66 @@
+DROP INDEX
+DELETE 499500
+INSERT 0 499500
+ANALYZE
+                                                         QUERY PLAN                                                         
+----------------------------------------------------------------------------------------------------------------------------
+ Gather  (cost=1000.00..13447.47 rows=5033 width=38) (actual time=0.287..36.171 rows=5030.00 loops=1)
+   Workers Planned: 2
+   Workers Launched: 2
+   Buffers: shared hit=9340
+   ->  Parallel Seq Scan on logs  (cost=0.00..11944.17 rows=2097 width=38) (actual time=0.023..10.086 rows=1676.67 loops=3)
+         Filter: (id_usuario = 450)
+         Rows Removed by Filter: 164990
+         Buffers: shared hit=9340
+ Planning:
+   Buffers: shared hit=19
+ Planning Time: 0.506 ms
+ Execution Time: 36.334 ms
+(12 filas)
+
+                                                        QUERY PLAN                                                         
+---------------------------------------------------------------------------------------------------------------------------
+ Gather  (cost=1000.00..13447.47 rows=5033 width=38) (actual time=0.200..36.535 rows=5030.00 loops=1)
+   Workers Planned: 2
+   Workers Launched: 2
+   Buffers: shared hit=9340
+   ->  Parallel Seq Scan on logs  (cost=0.00..11944.17 rows=2097 width=38) (actual time=0.006..9.714 rows=1676.67 loops=3)
+         Filter: (id_usuario = 450)
+         Rows Removed by Filter: 164990
+         Buffers: shared hit=9340
+ Planning Time: 0.050 ms
+ Execution Time: 36.703 ms
+(10 filas)
+
+CREATE INDEX
+ANALYZE
+                                                              QUERY PLAN                                                              
+--------------------------------------------------------------------------------------------------------------------------------------
+ Bitmap Heap Scan on logs  (cost=61.24..8386.87 rows=5267 width=38) (actual time=0.664..2.481 rows=5030.00 loops=1)
+   Recheck Cond: (id_usuario = 450)
+   Heap Blocks: exact=3106
+   Buffers: shared hit=3106 read=7
+   ->  Bitmap Index Scan on idx_logs_id_usuario  (cost=0.00..59.92 rows=5267 width=0) (actual time=0.397..0.397 rows=5030.00 loops=1)
+         Index Cond: (id_usuario = 450)
+         Index Searches: 1
+         Buffers: shared read=7
+ Planning:
+   Buffers: shared hit=19 read=1
+ Planning Time: 0.139 ms
+ Execution Time: 2.661 ms
+(12 filas)
+
+                                                              QUERY PLAN                                                              
+--------------------------------------------------------------------------------------------------------------------------------------
+ Bitmap Heap Scan on logs  (cost=61.24..8386.87 rows=5267 width=38) (actual time=0.523..1.525 rows=5030.00 loops=1)
+   Recheck Cond: (id_usuario = 450)
+   Heap Blocks: exact=3106
+   Buffers: shared hit=3113
+   ->  Bitmap Index Scan on idx_logs_id_usuario  (cost=0.00..59.92 rows=5267 width=0) (actual time=0.270..0.270 rows=5030.00 loops=1)
+         Index Cond: (id_usuario = 450)
+         Index Searches: 1
+         Buffers: shared hit=7
+ Planning Time: 0.036 ms
+ Execution Time: 1.699 ms
+(10 filas)
+
